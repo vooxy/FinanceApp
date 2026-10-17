@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -47,9 +48,7 @@ private fun FinanceAppTheme(content: @Composable () -> Unit) {
 @Composable
 @Suppress("FunctionNaming")
 private fun FinanceAppScreen() {
-    var checkSucceeded by rememberSaveable { mutableStateOf(false) }
-    val balance = 25_000
-    val transactionCount = 0
+    var state by remember { mutableStateOf(MainUiState()) }
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background,
@@ -68,15 +67,22 @@ private fun FinanceAppScreen() {
             Text(
                 text = stringResource(
                     R.string.balance_summary,
-                    balance,
-                    transactionCount,
+                    state.balance,
+                    state.transactionCount,
                 ),
                 style = MaterialTheme.typography.headlineSmall,
             )
-            Button(onClick = { }) {
+            Button(onClick = {
+                val transaction = Transaction(amount = 500, type = TransactionType.INCOME)
+                state = reduce(state, event = MainUiEvent.AddTransaction(transaction))
+            }) {
                 Text(text = stringResource(R.string.add_income_button))
+
             }
-            Button(onClick = { }) {
+            Button(onClick = {
+                val transaction = Transaction(amount = 250, type = TransactionType.EXPENSE)
+                state = reduce(state, event = MainUiEvent.AddTransaction(transaction))
+            }) {
                 Text(text = stringResource(R.string.add_expense_button))
             }
         }
