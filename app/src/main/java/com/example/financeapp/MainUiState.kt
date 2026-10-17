@@ -1,6 +1,5 @@
 package com.example.financeapp
 
-import androidx.compose.ui.Modifier
 
 internal data class MainUiState(
     // Какое начальное значение у баланса?
@@ -23,13 +22,13 @@ internal data class Transaction(
 
 internal sealed interface MainUiEvent {
     // Одно событие должно переносить созданную транзакцию
-    data class AddTransaction(val transaction: Transaction): MainUiEvent
+    data class AddTransaction(val transaction: Transaction) : MainUiEvent
 }
 
-internal fun reduce(state: MainUiState, event: MainUiEvent): MainUiState = when (event){
+internal fun reduce(state: MainUiState, event: MainUiEvent) : MainUiState = when (event) {
     is MainUiEvent.AddTransaction -> {
         val transaction = event.transaction
-        require(value = transaction.amount > 0) {"Transaction amount must be positive"}
+        require(value = transaction.amount > 0) { "Transaction amount must be positive" }
 
         val balanceChange = when (transaction.type) {
             TransactionType.INCOME -> transaction.amount
@@ -38,7 +37,7 @@ internal fun reduce(state: MainUiState, event: MainUiEvent): MainUiState = when 
 
         state.copy(
             balance = state.balance + balanceChange,
-            transactionCount = state.transactionCount + 1,
+            transactionCount = state.transactionCount + 1
         )
     }
 }

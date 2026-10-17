@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -77,7 +76,6 @@ private fun FinanceAppScreen() {
                 state = reduce(state, event = MainUiEvent.AddTransaction(transaction))
             }) {
                 Text(text = stringResource(R.string.add_income_button))
-
             }
             Button(onClick = {
                 val transaction = Transaction(amount = 250, type = TransactionType.EXPENSE)
