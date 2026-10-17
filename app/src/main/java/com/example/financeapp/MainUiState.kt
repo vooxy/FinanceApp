@@ -1,6 +1,5 @@
 package com.example.financeapp
 
-
 internal data class MainUiState(
     // Какое начальное значение у баланса?
     // Как посчитать выполненные операции?
@@ -25,7 +24,7 @@ internal sealed interface MainUiEvent {
     data class AddTransaction(val transaction: Transaction) : MainUiEvent
 }
 
-internal fun reduce(state: MainUiState, event: MainUiEvent) : MainUiState = when (event) {
+internal fun reduce(state: MainUiState, event: MainUiEvent): MainUiState = when (event) {
     is MainUiEvent.AddTransaction -> {
         val transaction = event.transaction
         require(value = transaction.amount > 0) { "Transaction amount must be positive" }
@@ -37,7 +36,7 @@ internal fun reduce(state: MainUiState, event: MainUiEvent) : MainUiState = when
 
         state.copy(
             balance = state.balance + balanceChange,
-            transactionCount = state.transactionCount + 1
+            transactionCount = state.transactionCount + 1,
         )
     }
 }
