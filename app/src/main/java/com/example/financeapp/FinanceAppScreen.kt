@@ -20,45 +20,45 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-    @Composable
-    @Suppress("FunctionNaming")
-    internal fun FinanceAppScreen() {
-        var state by remember { mutableStateOf(MainUiState()) }
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background,
+@Composable
+@Suppress("FunctionNaming")
+internal fun FinanceAppScreen() {
+    var state by remember { mutableStateOf(MainUiState()) }
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background,
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.safeDrawing)
+                .padding(horizontal = 60.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(
+                space = 24.dp,
+                alignment = Alignment.CenterVertically,
+            ),
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .windowInsetsPadding(WindowInsets.safeDrawing)
-                    .padding(horizontal = 60.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(
-                    space = 24.dp,
-                    alignment = Alignment.CenterVertically,
+            Text(
+                text = stringResource(
+                    R.string.balance_summary,
+                    state.balance,
+                    state.transactionCount,
                 ),
-            ) {
-                Text(
-                    text = stringResource(
-                        R.string.balance_summary,
-                        state.balance,
-                        state.transactionCount,
-                    ),
-                    style = MaterialTheme.typography.headlineSmall,
-                )
-                Button(onClick = {
-                    val transaction = Transaction(amount = 500, type = TransactionType.INCOME)
-                    state = reduce(state, event = MainUiEvent.AddTransaction(transaction))
-                }) {
-                    Text(text = stringResource(R.string.add_income_button))
-                }
-                Button(onClick = {
-                    val transaction = Transaction(amount = 250, type = TransactionType.EXPENSE)
-                    state = reduce(state, event = MainUiEvent.AddTransaction(transaction))
-                }) {
-                    Text(text = stringResource(R.string.add_expense_button))
-                }
+                style = MaterialTheme.typography.headlineSmall,
+            )
+            Button(onClick = {
+                val transaction = Transaction(amount = 500, type = TransactionType.INCOME)
+                state = reduce(state, event = MainUiEvent.AddTransaction(transaction))
+            }) {
+                Text(text = stringResource(R.string.add_income_button))
+            }
+            Button(onClick = {
+                val transaction = Transaction(amount = 250, type = TransactionType.EXPENSE)
+                state = reduce(state, event = MainUiEvent.AddTransaction(transaction))
+            }) {
+                Text(text = stringResource(R.string.add_expense_button))
             }
         }
     }
+}
