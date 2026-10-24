@@ -4,7 +4,7 @@ internal enum class TransactionType { INCOME, EXPENSE }
 
 internal enum class TransactionError {
     INVALID_INPUT,
-    AMOUNT_TOO_LARGE
+    AMOUNT_TOO_LARGE,
 }
 
 internal data class Transaction(
