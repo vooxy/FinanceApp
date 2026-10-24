@@ -19,6 +19,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 @Composable
 @Suppress("FunctionNaming")
 private fun FinanceAppTheme(content: @Composable () -> Unit) {
