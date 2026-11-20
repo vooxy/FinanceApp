@@ -22,3 +22,12 @@ internal data class MainUiState(
     val transactions: List<Transaction> = emptyList(),
     val error: TransactionError? = null,
 )
+
+internal sealed interface MainUiEvent {
+    data class AmountChanged(val value: String) : MainUiEvent
+    data class DescriptionChanged(val value: String) : MainUiEvent
+    data class TypeChanged(val type: TransactionType) : MainUiEvent
+    data class AddTransaction(val transaction: Transaction) : MainUiEvent
+    data object InvalidTransaction : MainUiEvent
+    data object AmountTooLarge : MainUiEvent
+}
